@@ -4,33 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GagerLife</title>
-    <link rel="icon" type="png" href="famikon.png">
+    <link rel="icon" type="image/png" href="famikon.png">
     <style>
-        /* Основные стили: черный фон + неоновые полосы по бокам */
+        /* Основные стили */
         body {
             margin: 0;
             padding: 0;
             font-family: "Motiva Sans", Sans-serif, Arial, Helvetica;
             background-color: #0b1116; 
-            
-            /* Градиентные неоновые линии по бокам */
-            background-image: linear-gradient(to right, #002e79 0%, rgba(11, 17, 22, 0) 5%, rgba(11, 17, 22, 0) 95%, #f400f7 100%);
-            background-attachment: fixed;
-            
             color: #c7d5e0;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* 1. Секция с гифкой и логотипом (Первый экран) */
+        /* 1. Секция с гифкой и логотипом */
         .hero-section {
             position: relative;
             width: 100%;
             height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column; 
+            justify-content: flex-start;
             align-items: center;
             overflow: hidden;
+            background-color: #0b1116;
+            box-sizing: border-box;
+            padding-top: 10vh;
         }
 
         /* Полупрозрачный задний фон с GIF */
@@ -52,7 +51,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(27, 40, 56, 0.2) 0%, rgba(22, 33, 45, 0.95) 90%, #16212d 100%);
+            background: linear-gradient(to bottom, 
+                rgba(255, 191, 0, 0.25) 0%, 
+                rgba(11, 17, 22, 0.7) 60%, 
+                #0b1116 100%);
             z-index: 2;
         }
 
@@ -66,28 +68,17 @@
         }
 
         .game-logo {
-            max-width: 450px;
+            max-width: 600px;
+            max-height: 50vh; 
             width: 100%;
             height: auto;
+            object-fit: contain;
             filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.8));
         }
 
-        /* Иконка стрелочки вниз */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            color: #66c0f4;
-            font-size: 24px;
-            text-decoration: none;
-            animation: bounce 2s infinite;
-        }
-
-        /* Кнопка "СКАЧАТЬ" под логотипом */
+        /* Кнопка "СКАЧАТЬ" */
         .steam-play-wrapper {
-            margin-top: 30px;
+            margin-top: 25px; 
             display: flex;
             justify-content: center;
         }
@@ -120,102 +111,44 @@
             transform: scale(1.03);
         }
 
-        /* 2. Секция описания и скачивания (Второй экран) */
- /* 2. Секция описания и скачивания (Второй экран) */
-        .content-section {
-            /* Расширяем максимальную ширину секции, чтобы влезли боковые картинки */
-            max-width: 1400px; 
-            margin: 0 auto;
-            padding: 80px 20px;
-            box-sizing: border-box;
-            
-            /* Делаем флекс-контейнер, чтобы выстроить картинки и блок Steam в ряд */
-            display: flex;
-            align-items: center;    /* Выравнивание по центру по вертикали */
-            justify-content: center;/* Центрируем все содержимое */
-            gap: 30px;              /* Расстояние между картинками и блоком */
+        /* Иконка стрелочки вниз */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            color: #ffbf00; 
+            font-size: 24px;
+            text-decoration: none;
+            animation: bounce 2s infinite;
+            display: block;
         }
 
-        /* Сам блок описания теперь гибкий по ширине, но не шире стандартных 940px */
+        /* 2. Секция описания и скачивания (Второй экран) */
+        .content-section {
+            width: 100%;
+            padding: 80px 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: flex-start;    
+            justify-content: center;
+            gap: 40px;
+            background-image: 
+                radial-gradient(circle at bottom left, rgba(0, 46, 121, 0.4) 0%, rgba(11, 17, 22, 0) 55%),
+                radial-gradient(circle at bottom right, rgba(244, 0, 247, 0.35) 0%, rgba(11, 17, 22, 0) 55%);
+        }
+
         .steam-box {
             flex: 1;
             max-width: 940px; 
-            background: rgba(22, 32, 45, 0.85);
-            border: 1px solid rgba(0, 0, 0, 0.4);
+            background: rgba(11, 17, 22, 0.95); 
+            border: 1px solid rgba(102, 192, 244, 0.1); 
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 4px;
             padding: 30px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
             box-sizing: border-box;
-        }
-
-        /* Боковые картинки */
-        .side-art {
-            flex: 0 0 160px; /* Задаем фиксированную ширину картинкам, например, 160px */
-            max-width: 160px;
-        }
-
-        .side-art img {
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            filter: drop-shadow(0px 8px 25px rgba(0, 0, 0, 0.7));
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Индивидуальные эффекты свечения при наведении */
-        .side-art.left-art img:hover {
-            transform: scale(1.08) rotate(-2deg); /* Небольшой наклон влево */
-            box-shadow: 0px 0px 25px rgba(0, 46, 121, 0.7); /* Синее свечение под цвет фона */
-        }
-
-        .side-art.right-art img:hover {
-            transform: scale(1.08) rotate(2deg); /* Небольшой наклон вправо */
-            box-shadow: 0px 0px 25px rgba(244, 0, 247, 0.7); /* Розовое свечение под цвет фона */
-        }
-
-        /* Адаптивность под планшеты и мобильные */
-        @media (max-width: 1100px) {
-            /* Если экран становится средним, делаем картинки чуть меньше */
-            .side-art {
-                flex: 0 0 120px;
-                max-width: 1200px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            /* На мобилках и узких экранах перестраиваем в колонку */
-            .content-section {
-                flex-direction: column;
-                gap: 25px;
-            }
-            
-            /* На мобилке картинки пойдут в ряд над и под описанием для красоты */
-            .side-art {
-                flex: 0 0 auto;
-                width: 140px;
-            }
-            
-            .left-art {
-                order: 1; /* Левая сверху */
-            }
-            .steam-box {
-                order: 2; /* Описание посередине */
-                width: 100%;
-            }
-            .right-art {
-                order: 3; /* Правая снизу */
-            }
-        }
-
-        .steam-box {
-            background: rgba(22, 32, 45, 0.85);
-            border: 1px solid rgba(0, 0, 0, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            padding: 30px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .steam-box h2 {
@@ -237,7 +170,75 @@
             margin-bottom: 20px;
         }
 
-        /* Виджет Itch.io по центру */
+        /* НОВЫЙ СТИЛЬ: Текст-дисклеймер под описанием */
+        .description-disclaimer {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #56687a;
+            border-left: 2px solid #3a5b74;
+            padding-left: 15px;
+            margin: 25px 0;
+            font-style: italic;
+        }
+
+        /* НОВЫЙ СТИЛЬ: Сетка скриншотов */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .screenshot-item {
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: #000;
+            aspect-ratio: 16 / 9;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: brightness(0.9);
+        }
+
+        .screenshot-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* УВЕЛИЧЕННЫЕ боковые картинки */
+        .side-art {
+            flex: 0 0 340px;
+            max-width: 340px;
+            position: sticky;
+            top: 40px;
+        }
+
+        .side-art img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            filter: drop-shadow(0px 8px 25px rgba(0, 0, 0, 0.7));
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .side-art.left-art img:hover {
+            transform: scale(1.04) rotate(-1deg);
+            box-shadow: 0px 0px 25px rgba(0, 46, 121, 0.6); 
+        }
+
+        .side-art.right-art img:hover {
+            transform: scale(1.04) rotate(1deg);
+            box-shadow: 0px 0px 25px rgba(244, 0, 247, 0.6); 
+        }
+
+        /* Виджет Itch.io */
         .itch-container {
             display: flex;
             justify-content: center;
@@ -277,7 +278,6 @@
             flex-wrap: wrap;
         }
 
-        /* Стили кнопок скачивания */
         .btn-download {
             border: none;
             border-radius: 3px;
@@ -292,7 +292,6 @@
             display: inline-block;
         }
 
-        /* Кнопка 1: Зеленая (GameJolt) */
         .btn-download.primary {
             background: linear-gradient(to right, #75b022 0%, #588a1b 100%);
             color: #d2eff9;
@@ -304,7 +303,6 @@
             box-shadow: 0 0 15px rgba(117, 176, 34, 0.4);
         }
 
-        /* Кнопка 2: Сине-серая (Яндекс Диск) */
         .btn-download.secondary {
             background: linear-gradient(to bottom, #2f3e4e 0%, #1d262f 100%);
             color: #66c0f4;
@@ -321,17 +319,17 @@
         /* Подвал */
         .steam-footer {
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding: 30px 0;
+            background-color: #080c10;
+            padding: 30px 0 0 0; 
             margin-top: 50px;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
         }
 
         .footer-content {
             max-width: 940px;
             margin: 0 auto;
             padding: 0 20px;
-            text-align: center;
             box-sizing: border-box;
         }
 
@@ -348,6 +346,131 @@
             opacity: 0.5;
         }
 
+        /* Карточка Guns.lol */
+        .gunslol-card {
+            background: #0f0f12;
+            border: 1px solid #2a2a35;
+            border-radius: 16px;
+            padding: 24px;
+            width: 280px;
+            text-align: center;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(138, 43, 226, 0.1);
+            transition: all 0.3s ease;
+            margin: 20px auto;
+        }
+
+        .gunslol-card:hover {
+            transform: translateY(-5px);
+            border-color: #8a2be2;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(138, 43, 226, 0.4);
+        }
+
+        .gunslol-avatar-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid #8a2be2;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+            background: #1a1a22;
+        }
+
+        .gunslol-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gunslol-username {
+            margin: 0 0 5px 0;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .gunslol-tagline {
+            margin: 0 0 20px 0;
+            font-size: 13px;
+            color: #a0a0b0;
+        }
+
+        .gunslol-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .gunslol-btn:hover {
+            background: #8a2be2;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+        }
+
+        .gunslol-glow-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #121214;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: 1px solid #33333b;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .gunslol-glow-button:hover {
+            background-color: #1a1a1f;
+            border-color: #a855f7;
+            color: #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            transform: scale(1.03);
+        }
+
+        .gunslol-glow-button .icon {
+            font-size: 16px;
+        }
+
+        /* Нижний арт подвала */
+        .footer-bottom-art {
+            width: 100%;
+            margin-top: 25px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .footer-bottom-art img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .footer-bottom-art:hover {
+            opacity: 1;
+        }
+
         /* Анимации */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -360,7 +483,33 @@
             60% { transform: translateY(-5px) translateX(-50%); }
         }
 
-        /* Мобильная адаптивность */
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .side-art {
+                flex: 0 0 200px;
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 950px) {
+            .content-section {
+                flex-direction: column;
+                gap: 25px;
+                background-image: linear-gradient(to top, rgba(0, 46, 121, 0.3) 0%, rgba(11, 17, 22, 0) 50%);
+            }
+            .side-art {
+                flex: 0 0 auto;
+                width: 180px;
+                position: static;
+            }
+            .left-art { order: 1; }
+            .steam-box { order: 2; width: 100%; }
+            .right-art { order: 3; }
+            .screenshots-grid {
+                grid-template-columns: 1fr; /* На мобилках скриншоты в один столбец */
+            }
+        }
+
         @media (max-width: 768px) {
             .download-area {
                 flex-direction: column;
@@ -375,112 +524,22 @@
                 box-sizing: border-box;
             }
         }
-/* Стили для нового блока с картинками вне about */
-        .art-divider-section {
-            max-width: 1200px; /* Делаем этот блок шире, чем текстовый */
-            margin: 40px auto 0 auto;
-            padding: 0 40px;
-            display: flex;
-            justify-content: space-between; /* Левая картинка уйдет влево, правая — вправо */
-            align-items: center;
-            box-sizing: border-box;
-        }
-
-        /* Стили для самих картинок */
-        .side-art {
-            flex: 0 1 280px; /* Теперь картинки могут быть крупнее, например, до 280px в ширину */
-            max-width: 280px;
-        }
-
-        .side-art img {
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            filter: drop-shadow(0px 8px 25px rgba(0, 0, 0, 0.7));
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Эффект свечения и приближения при наведении */
-        .side-art.left-art img:hover {
-            transform: scale(1.05) rotate(-1deg); /* Легкий наклон влево */
-            box-shadow: 0px 0px 25px rgba(0, 46, 121, 0.6); /* Синее свечение */
-        }
-
-        .side-art.right-art img:hover {
-            transform: scale(1.05) rotate(1deg); /* Легкий наклон вправо */
-            box-shadow: 0px 0px 25px rgba(244, 0, 247, 0.6); /* Розовое свечение */
-        }
-
-        /* Адаптивность для мобильных устройств */
-        @media (max-width: 768px) {
-            .art-divider-section {
-                flex-direction: row; /* Оставляем их в ряд на средних экранах */
-                justify-content: center;
-                gap: 20px;
-            }
-            .side-art {
-                flex: 0 1 150px; /* На мобилках делаем их поменьше и ставим рядышком */
-            }
-        }
-/* Стили для подвала */
-        footer {
-            background: #080c10;
-            padding: 30px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px; /* Отступ между текстом копирайта и картинкой */
-        }
-
-        footer p {
-            color: #556775;
-            font-size: 13px;
-            margin: 0;
-        }
-
-        /* Контейнер для картинки под копирайтом */
-/* Контейнер для картинки под копирайтом на всю ширину */
-        .footer-bottom-art {
-            width: 100%;             /* Растягиваем контейнер на всю ширину подвала */
-            margin-top: 15px;        /* Отступ от текста копирайта */
-            opacity: 0.8;            /* Делаем её слегка приглушенной в стиле Steam */
-            transition: opacity 0.3s ease;
-            overflow: hidden;
-        }
-
-        .footer-bottom-art img {
-            width: 100%;             /* Картинка растягивается на всю ширину */
-            height: auto;            /* Пропорции сохраняются */
-            display: block;
-            object-fit: cover;       /* Красиво заполняет пространство, если картинка слишком высокая */
-        }
-
-        /* При наведении подвал становится ярче */
-        .footer-bottom-art:hover {
-            opacity: 1;
-        }
-        }
     </style>
 </head>
 <body>
 
+    <!-- 1. Секция с гифкой и логотипом (Первый экран) -->
     <section class="hero-section">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         
         <div class="logo-container">
-            <img src="https://img.itch.zone/aW1nLzI4MzUzMDQ0LnBuZw==/original/34oUF3.png" alt="Логотип игры" class="game-logo">
+            <img src="https://i.ibb.co/cXgmzHJ7/gag.png" alt="Логотип игры" class="game-logo">
             
             <div class="steam-play-wrapper">
                 <a href="#about" class="steam-play-btn">
                     <span class="play-icon">►</span>
-                    <span class="play-text">СКАЧАЬтиммм</span>
+                    <span class="play-text">СКАЧАТЬ</span>
                 </a>
             </div>
         </div>
@@ -488,26 +547,58 @@
         <a href="#about" class="scroll-indicator">▼</a>
     </section>
 
-<section class="content-section" id="about">
+    <!-- 2. Секция описания и скачивания (Второй экран) -->
+    <section class="content-section" id="about">
         
+        <!-- Левый арт -->
         <div class="side-art left-art">
             <img src="left-art.png" alt="Левый арт GagerLife">
         </div>
 
+        <!-- Центральный блок Steam -->
         <div class="steam-box">
             <h2>Об этой херне</h2>
             
+			<p>
+			    "Теперь это точно всё. Завершающая Сага Каталога Даникии и Five Nights At Sergey Burunov.  Финал. Жизнь Гагера"
+			
             <p>
-                Гагер лайф — юмористическая новелла. Игра вышла, и вы её ждали. Нет? Мне всё равно! Хотели пожить в шкуре одного из героев арки хакеров? Так вот...
+                Гагер лайф - это наверное новелла. Игра вышла, и вы её ждали. Нет? I don`t give a shit! Хотели пожить в шкуре одного из героев арки хакеров? Так вот...
             </p>
+			
+		    Здесь тебе придётся решать вселенские проблемы и принимать разные шкуры твоих глаз ну типа да гагер же или кто такой гагер подожди
+	       
             <p>
-                Теперь вас ждет захватывающий сюжет, крутые битвы, мини-игры и тонна контента. Три в одном, как кофе! Скачай игру, если нихуя не смешно.
+                Теперь вас не будет ждет захватывающий сюжет, крутые битвы, Предыстория блюгера. Молоко. Скачай игру, если нихуя не смешно.
             </p>
 
+            <!-- ДОБАВЛЕНО: Текст дисклеймера (поменяй текст внутри тега на свой) -->
+            <div class="description-disclaimer">
+                Имеются противопоказания. Обратитесь к специалисту
+            </div>
+
+            <!-- ДОБАВЛЕНО: Сетка скриншотов (Замени названия картинок scr1.png, scr2.png и т.д. на свои файлы) -->
+            <div class="screenshots-grid">
+                <div class="screenshot-item">
+                    <img src="scr1.png" alt="Скриншот 1" onerror="this.src='https://img.itch.zone/aW1hZ2UvNDY0NDE3Ny8yODI1NTI5MS5wbmc=/original/9XgKY0.png?text=Screenshot+1'">
+                </div>
+                <div class="screenshot-item">
+                    <img src="scr2.png" alt="Скриншот 2" onerror="this.src='https://img.itch.zone/aW1hZ2UvNDY0NDE3Ny8yODM0ODQ0Ni5wbmc=/original/KIHC8R.png?text=Screenshot+2'">
+                </div>
+                <div class="screenshot-item">
+                    <img src="scr3.png" alt="Скриншот 3" onerror="this.src='https://img.itch.zone/aW1hZ2UvNDY0NDE3Ny8yODM0ODQ1MC5wbmc=/original/%2FTGofm.png?text=Screenshot+3'">
+                </div>
+                <div class="screenshot-item">
+                    <img src="scr4.png" alt="Скриншот 4" onerror="this.src='https://placehold.co/600x337/15202d/acb2b8?text=Игра в разработке'">
+                </div>
+            </div>
+
+            <!-- Виджет Itch.io -->
             <div class="itch-container">
                 <iframe frameborder="0" src="https://itch.io/embed/4644177?linkback=true&amp;bg_color=002e79&amp;fg_color=f400f7&amp;link_color=5bfa6a&amp;border_color=2959c5" width="552" height="167"><a href="https://zloigena666.itch.io/gagerlife">GagerLife by PowerCat</a></iframe>
             </div>
 
+            <!-- Зона скачивания -->
             <div class="download-area">
                 <span class="download-text">Сыграть в GagerLife</span>
                 <div class="buttons-group">
@@ -517,23 +608,36 @@
             </div>
         </div>
 
+        <!-- Правый арт -->
         <div class="side-art right-art">
             <img src="right-art.png" alt="Правый арт GagerLife">
         </div>
 
     </section>
 
+    <!-- Подвал -->
     <footer class="steam-footer">
         <div class="footer-content">
             <p>© 2026 PowerCat. GagerLife.</p>
             <p class="disclaimer">Сайт сделал Catis.</p>
         </div>
-<div class="footer-bottom-art">
-                <!-- Замените путь на свою картинку (например, какой-то мелкий спрайт, логотип или гифку) -->
-                <img src="bottom-art.png" alt="Нижний арт GagerLife">
+       
+        
+        <div class="gunslol-card">
+            <div class="gunslol-avatar-container">
+                <img src="avatar.png" alt="zloigena666 аватар" class="gunslol-avatar-img" onerror="this.onerror=null; this.src='https://guns.lol/assets/img/logo_pfp.png'; this.style.opacity='0.5';">
             </div>
+            <h3 class="gunslol-username">Catis</h3>
+            <p class="gunslol-tagline">Steam Profile</p>
+            <a href="https://steamcommunity.com/profiles/76561198211795333/" target="_blank" class="gunslol-btn">Посетить</a>
         </div>
-    </footer>
+                <a href="https://guns.lol/zloigena666" target="_blank" class="gunslol-glow-button">
+            <span class="icon">🔗</span> zloigena666
+        </a>
+        <!-- Нижний арт во всю ширину подвала -->
+        <div class="footer-bottom-art">
+            <img src="bottom-art.png" alt="Нижний арт GagerLife">
+        </div>
     </footer>
 
 </body>
